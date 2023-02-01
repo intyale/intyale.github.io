@@ -25,8 +25,14 @@
     <script>
         'use strict';
         const urlParams = new URLSearchParams(window.location.search);
-        if(urlParams.get("server_url") === null){
-            alert("You have to specify server_url in the URL query")
+        if(urlParams.get("server_url") === null || urlParams.get("server_url") === ""){
+            var server_url = prompt("Angiv URL for den server du prøver at tilgå.", "");
+            console.log(server_url);
+            urlParams.append("server_url", server_url);
+            var new_url = window.location.origin === "null" ? "" : window.location.origin;
+            new_url = new_url + (window.location.pathname === null ? "" : window.location.pathname);
+            new_url = new_url + "?" + urlParams.toString();
+            window.location = new_url;
         }
         function createLinkElem(gameId, playerId){
             let li = document.createElement("li");
