@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="da"><head>
+    <title>Spil 31</title>
+    <!-- we probably also want a favicon -->
+    <script src="game.js"></script>
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="game.css" />
+    <link rel="icon" href="icon.png" />
+</head><body>
+    <div id="announcements-outer">
+        <h2 id="announcements"></h2>
+    </div>
+    <div id="playArea">
+        <div id="disCard"></div>
+        <aside id="revealedCards"></aside>
+    </div>
+    <p>It is <span id="currentPlayerName">unknown</span>'s turn.</p>
+    <input type="button" class="hidden" value="Play another round!" id="new_game_button" onclick = "newGame()" />
+    <div id="playerSecretArea">
+        <h2><span id="playerName">unknown</span>'s hand</h2>
+        <div id="playerCards"></div>
+        <div id="playerActions">
+            <p id="discardExplainer">Click a card to discard it.</p>
+            <div id="buttons">
+                <input type="button" value="Draw card" onclick="draw()" disabled="" />
+                <input type="button" value="Take discarded card" onclick="takeDiscard()" disabled="" />
+                <input type="button" value="Knock" onclick="knock()" disabled="" />
+            </div>
+        </div>
+    </div>
+
+</body></html>

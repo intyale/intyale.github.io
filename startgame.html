@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="da"><head>
+    <title>Start et spil 31</title>
+    <link rel="stylesheet" href="common.css" />
+    <link rel="icon" href="icon.png" />
+    <style>
+        #links {
+            background: #444;
+            margin: 0 -1rem;
+            padding: 1px 1rem;
+        }
+    </style>
+</head><body>
+    <h1>Start et spil 31</h1>
+    <form>
+        <label for="players">Spillere (kommasepareret liste):</label>
+        <input type="text" id="players" size="50" autofocus />
+        <br />
+        <input type="button" value="Start spil" onclick="createGame(this)" />
+    </form>
+    <div id="links" class="hidden">
+        <p>Your game has been created! Follow these links to play:</p>
+    </div>
+
+    <script>
+        'use strict';
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get("server_url") === null){
+            alert("You have to specify server_url in the URL query")
+        }
+        function createLinkElem(gameId, playerId){
+            let li = document.createElement("li");
+            let a = document.createElement("a");
+            a.href = "game.html?server_url=" + urlParams.get("server_url") + "&game_id=" + gameId + "&player_id=" + playerId;
+            a.innerText = a.href;
+            li.appendChild(a);
+            return li;
+        }
+        function showLinks(gameId, playerIds){
+            const linksContainer = document.getElementById("links");
+            const listElem = document.createElement("ul");
+            linksContainer.appendChild(listElem);
+            for (let player of playerIds){
+                listElem.appendChild(createLinkElem(gameId, player));
+            }
+            linksContainer.classList.remove("hidden");
+        }
+        async function createGame(caller){
+            caller.setAttribute("disabled", "");
+            var players = document.getElementById("players").value.split(",");
+            players = players.map(p => encodeURIComponent(p.trim())).filter(p => p.length > 0);
+            const content = JSON.stringify(players);
+            const options = {
+                method: 'POST',
+                mode: 'cors', // no-cors, *cors, same-origin
+                headers: {'Content-Type': 'application/json', 'Content-Length': content.length.toString()},
+                body: content
+            };
+            var response;
+            try {
+                response = await fetch(urlParams.get("server_url") + "/game/create/new/", options);
+            } catch(e) {
+                alert("Could not connect to server.\n(See details in browser console)");
+                console.log(e);
+                caller.removeAttribute("disabled");
+                return;
+            }
+            
+            if (response.ok) {
+                console.log(response);
+                const responseContent = await response.json();
+                showLinks(responseContent, players);
+            } else {
+                alert("The server did not accept your action.\n(See details in browser console)");
+                console.log(response);
+                caller.removeAttribute("disabled");
+            }
+        }
+    </script>
+</body></html>

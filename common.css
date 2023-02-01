@@ -1,0 +1,28 @@
+html{
+    color: #fff;
+    background: #000;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif
+}
+body {
+    margin: 1em 2em;
+    padding: 0;
+}
+.hidden {
+    display:none;
+}
+input {
+    margin: 1em 0;
+}
+
+a {
+  color: #47b2ff;
+  text-decoration: underline;
+}
+a:visited {
+  color: #708aff;
+}
+a:hover, a:focus, a:active {
+  color: #6bd5ff;
+}

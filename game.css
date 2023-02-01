@@ -1,0 +1,49 @@
+.card {
+    height: 10em;
+}
+#disCard, #playerCards {
+    min-height: 10em;
+}
+
+#playArea, #playerSecretArea {
+    padding: 1em;
+}
+
+#disCard {
+    padding: 1em 0;
+}
+
+#playArea {
+    background: #060;
+    display: flex;
+    justify-content: space-between;
+}
+#revealedCards {
+    margin: 0 0 1em;
+}
+#revealedCards:last-child {
+    margin-bottom: 0;
+}
+#revealedCards h3 {
+    margin: .5em 0;
+}
+#revealedCards .card {
+    height: 7em;
+}
+#playerSecretArea {
+    background: #444;
+    margin-top: 1em;
+}
+
+#playerSecretArea #playerActions p {
+    display: none;
+}
+#playerSecretArea.hasFourCards #playerActions p {
+    display: block;
+}
+#playerSecretArea.hasFourCards #playerActions div {
+    display: none;
+}
+#playerSecretArea.hasFourCards .card {
+    cursor: pointer;
+}
